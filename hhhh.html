@@ -1,0 +1,38 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+    </head>
+<body>
+    <div class="form-container">
+        <h1>Minecraft Server Joining Form</h1>
+
+        <form action="https://formspree.io/f/xrbewjbd" method="POST">  <label for="minecraftUsername">Minecraft Username:</label>
+            <input type="text" id="minecraftUsername" name="minecraftUsername" required><br><br>
+
+            <label for="freeMCUsername">FreeMCServer Username:</label>
+            <input type="text" id="freeMCUsername" name="freeMCUsername" required><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <div class="signup-link">
+            <p>If you haven't made a FreeMCServer account, click <a href="https://freemcserver.net/signup" target="_blank">here</a> to sign up.</p>
+        </div>
+
+        <div id="thankYouMessage" style="display:none;">
+            <h2>Thank you for submitting!</h2>
+        </div>
+    </div>
+
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            document.querySelector('form').style.display = 'none';
+            document.getElementById('thankYouMessage').style.display = 'block';
+        });
+    </script>
+
+</body>
+</html>
