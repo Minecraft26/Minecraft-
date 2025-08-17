@@ -374,7 +374,7 @@ function logoutUser() {
 SIDEBAR_LOGOUT_BTN.addEventListener('click', logoutUser);
 
 // --- Initial Load & Authentication Check ---
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", async () => {
     applyTheme(); // Apply saved theme on load
     console.log('DOM Content Loaded. Checking authentication status...');
 
