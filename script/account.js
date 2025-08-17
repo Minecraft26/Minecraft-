@@ -1,39 +1,7 @@
 
-const cloudflareApi = {
-    async login(email, password) {
-        const response = await fetch('https://mainweb.mk2899833.workers.dev/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        });
-        return response.json();
-    },
-    async register(email, password, minecraftUsername, accountName, minecraftEdition) {
-        const response = await fetch('https://mainweb.mk2899833.workers.dev/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password, minecraftUsername, accountName, minecraftEdition })
-        });
-        return response.json();
-    },
-    async updateProfile(email, newProfileData) {
-        const response = await fetch(`https://mainweb.mk2899833.workers.dev/profile/${email}` , {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newProfileData)
-        });
-        return response.json();
-    },
-    async changePassword(email, currentPassword, newPassword) {
-        const response = await fetch(`https://mainweb.mk2899833.workers.dev/password/${email}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ currentPassword, newPassword })
-        });
-        return response.json();
-    }
-};
 
+
+const simulatedCloudflareApi = cloudflareApi;
 
 // --- User Authentication and Profile Management ---
 const AUTH_SCREEN = document.getElementById('auth-screen');
@@ -174,30 +142,40 @@ MAIN_AUTH_SUBMIT_BTN.addEventListener('click', async (e) => {
             return;
         }
 
-        const response = await simulatedCloudflareApi.register(email, password, minecraftUsername, accountName, minecraftEdition); // Pass edition
+        const response = await fetch('https://mainweb.mk2899833.workers.dev/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, minecraftUsername, accountName, minecraftEdition })
+        });
+        const responseData = await response.json();
 
-        if (response.success) {
-            currentUser = { email: response.email, uid: response.uid };
-            userProfile = response.user;
+        if (responseData.success) {
+            currentUser = { email: responseData.email, uid: responseData.uid };
+            userProfile = responseData.user;
             sessionStorage.setItem('current_auth_email', email);
             handleSuccessfulAuth();
             showCustomMessage(MAIN_AUTH_MESSAGE_ELEM, 'Account created successfully!', 'success');
         } else {
-            showCustomMessage(MAIN_AUTH_MESSAGE_ELEM, response.message, 'error');
+            showCustomMessage(MAIN_AUTH_MESSAGE_ELEM, responseData.message, 'error');
         }
 
     } else {
         // Login logic
-        const response = await simulatedCloudflareApi.login(email, password);
+        const response = await fetch('https://mainweb.mk2899833.workers.dev/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        });
+        const responseData = await response.json();
 
-        if (response.success) {
-            currentUser = { email: response.email, uid: response.uid };
-            userProfile = response.user;
+        if (responseData.success) {
+            currentUser = { email: responseData.email, uid: responseData.uid };
+            userProfile = responseData.user;
             sessionStorage.setItem('current_auth_email', email);
             handleSuccessfulAuth();
             showCustomMessage(MAIN_AUTH_MESSAGE_ELEM, 'Login successful!', 'success');
         } else {
-            showCustomMessage(MAIN_AUTH_MESSAGE_ELEM, response.message, 'error');
+            showCustomMessage(MAIN_AUTH_MESSAGE_ELEM, responseData.message, 'error');
         }
     }
 });
@@ -276,14 +254,19 @@ PROFILE_FORM.addEventListener('submit', async (e) => {
         avatar: userProfile.avatar // Retain current avatar unless changed via file input
     };
 
-    const response = await simulatedCloudflareApi.updateProfile(currentUser.email, updatedProfile);
+    const response = await fetch(`https://mainweb.mk2899833.workers.dev/profile/${currentUser.email}` , {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedProfile)
+    });
+    const responseData = await response.json();
 
-    if (response.success) {
-        userProfile = response.user; // Update local profile with confirmed changes
+    if (responseData.success) {
+        userProfile = responseData.user; // Update local profile with confirmed changes
         renderProfile(); // Re-render to update display fields and header
         showCustomMessage(PROFILE_MESSAGE_ELEM, 'Profile saved successfully!', 'success');
     } else {
-        showCustomMessage(PROFILE_MESSAGE_ELEM, response.message, 'error');
+        showCustomMessage(PROFILE_MESSAGE_ELEM, responseData.message, 'error');
     }
 });
 
@@ -296,14 +279,19 @@ AVATAR_UPLOAD_INPUT.addEventListener('change', async (e) => {
             const avatarDataUrl = event.target.result; // Data URL of the image
             const updatedProfile = { ...userProfile, avatar: avatarDataUrl }; // Update avatar in profile
 
-            const response = await simulatedCloudflareApi.updateProfile(currentUser.email, updatedProfile);
+            const response = await fetch(`https://mainweb.mk2899833.workers.dev/profile/${currentUser.email}` , {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(updatedProfile)
+            });
+            const responseData = await response.json();
 
-            if (response.success) {
-                userProfile = response.user; // Update local profile
+            if (responseData.success) {
+                userProfile = responseData.user; // Update local profile
                 updateAvatarDisplay(userProfile.avatar, currentUser.email);
                 showCustomMessage(PROFILE_MESSAGE_ELEM, 'Profile picture updated!', 'success');
             } else {
-                showCustomMessage(PROFILE_MESSAGE_ELEM, response.message, 'error');
+                showCustomMessage(PROFILE_MESSAGE_ELEM, responseData.message, 'error');
             }
         };
         reader.readAsDataURL(file); // Read file as Data URL
@@ -350,16 +338,21 @@ CHANGE_PASSWORD_FORM.addEventListener('submit', async (e) => {
         return;
     }
 
-    const response = await simulatedCloudflareApi.changePassword(currentUser.email, currentPassword, newPassword);
+    const response = await fetch(`https://mainweb.mk2899833.workers.dev/password/${currentUser.email}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ currentPassword, newPassword })
+    });
+    const responseData = await response.json();
 
-    if (response.success) {
-        showCustomMessage(CHANGE_PASSWORD_MESSAGE, response.message, 'success');
+    if (responseData.success) {
+        showCustomMessage(CHANGE_PASSWORD_MESSAGE, responseData.message, 'success');
         // Clear fields on success
         CURRENT_PASSWORD_INPUT.value = '';
         NEW_PASSWORD_INPUT.value = '';
         CONFIRM_NEW_PASSWORD_INPUT.value = '';
     } else {
-        showCustomMessage(CHANGE_PASSWORD_MESSAGE, response.message, 'error');
+        showCustomMessage(CHANGE_PASSWORD_MESSAGE, responseData.message, 'error');
     }
 });
 
