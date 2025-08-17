@@ -1,1 +1,14 @@
-{}
+{
+  "test@example.com": {
+    "email": "test@example.com",
+    "password": "2",
+    "uid": "user_j61gdpay9",
+    "profile": {
+      "minecraftUsername": "a",
+      "minecraftEdition": "java",
+      "accountId": "user_j61gdpay9",
+      "accountName": "a",
+      "avatar": ""
+    }
+  }
+}
