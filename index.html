@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minecraft Server</title>
+    <!-- Google Fonts: Inter for modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Message Box Overlay (for custom alerts) -->
+    <div id="message-box-overlay" class="message-box-overlay">
+        <div class="message-box">
+            <h3 id="message-box-title"></h3>
+            <p id="message-box-content"></p>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <p>Loading Minecraft Experience...</p>
+    </div>
+
+    <!-- Authentication Screen (Initially visible, hides after login/create) -->
+    <div id="auth-screen">
+        <div id="auth-panel">
+            <h2 id="auth-welcome-message">Welcome Back!</h2>
+            <form id="auth-form-main">
+                <input type="text" id="auth-email-input" placeholder="Enter Username or Email" required>
+                <input type="password" id="auth-password-input" placeholder="Password" required>
+
+                <!-- New: Platform Select (moved above username) -->
+                <label for="auth-platform-select" style="display: none; text-align: left; margin-top: 5px;">Minecraft Edition:</label>
+                <select id="auth-platform-select" style="display: none;" required>
+                    <option value="">-- Select Edition --</option>
+                    <option value="java">Java Edition</option>
+                    <option value="bedrock">Bedrock Edition</option>
+                </select>
+
+                <!-- Minecraft Username input - will have dot for Bedrock -->
+                <input type="text" id="auth-minecraft-username-input" placeholder="Minecraft Username" style="display: none;">
+                <input type="text" id="auth-account-name-input" placeholder="Account Name (e.g. Guild Name)" style="display: none;">
+                
+                <div class="checkbox-container" id="rules-checkbox-container" style="display: none;">
+                    <input type="checkbox" id="agree-rules-checkbox">
+                    <label for="agree-rules-checkbox">I agree to the <a href="https://minecraft2613.github.io/Minecarft-2613-Rules/" target="_blank">Minecraft Server Rules</a></label>
+                </div>
+
+                <button type="submit" id="main-auth-submit-btn" style="background-color: var(--accent-blue);">Login</button>
+                <p id="auth-message-main"></p>
+
+                <div style="margin-top: 15px; border-top: 1px dashed #333; padding-top: 15px;">
+                    <button type="button" id="toggle-auth-mode-btn" style="background-color: var(--accent-dark-blue);">Don't have an account? Create one</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper (Hidden until authenticated) -->
+    <div id="main-content-wrapper">
+        <header>
+            <button class="navbar-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+            <h1>🔥 Minecraft Server</h1>
+            <!-- Top-right profile display -->
+            <div class="header-profile" id="header-profile-display">
+                <div class="profile-avatar-small" id="header-profile-avatar">
+                    <span id="header-profile-initial"></span>
+                    <img id="header-profile-image" src="" alt="Profile Pic" style="display: none;">
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown-menu">
+                    <a href="#" onclick="showSection('account-settings-content'); toggleProfileDropdown(); return false;"><i class="fas fa-user-cog"></i> View Profile</a>
+                    <a href="#" onclick="showSection('change-password-content'); toggleProfileDropdown(); return false;"><i class="fas fa-key"></i> Change Password</a>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content-area">
+            <!-- Sidebar -->
+            <aside id="sidebar">
+                <button class="close-btn" onclick="toggleSidebar()"><i class="fas fa-times"></i></button>
+                <nav>
+                    <ul>
+                        <li><a href="#" data-section="server-info-content" class="active"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#" data-section="account-settings-content"><i class="fas fa-user-cog"></i> Account Settings</a></li>
+                        <li><a href="https://minecraft2613.github.io/taxess/" target="_blank"><i class="fas fa-money-check-alt"></i> View Your Tax</a></li>
+                        <li><a href="#" data-section="players-content"><i class="fas fa-users"></i> Players</a></li>
+                        <li><a href="#" data-section="forms-content"><i class="fas fa-file-alt"></i> Forms</a></li>
+                        <li><a href="#" data-section="contact-us-content"><i class="fas fa-envelope"></i> Contact Us</a></li>
+                        <li><a href="https://minecraft2613.github.io/Minecarft-2613-Rules/" target="_blank"><i class="fas fa-scroll"></i> Rules</a></li> <!-- External Rules Link -->
+                        <li><a href="#" data-section="theme-settings-content"><i class="fas fa-palette"></i> Theme Settings</a></li>
+                        <li><button id="sidebar-logout-btn" style="background-color: var(--button-red); margin: 20px auto; width: calc(100% - 20px);" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+                    </ul>
+                </nav>
+            </aside>
+            <div class="overlay" onclick="toggleSidebar()"></div>
+
+            <!-- This div contains the always-visible navigation buttons -->
+            <div id="homepage-nav-section">
+                <h2 style="text-align: center; color: var(--accent-green);">Choose Your Path</h2>
+                <div id="main-nav-buttons">
+                    <button onclick="showSection('server-info-content')">
+                        <i class="fas fa-info-circle"></i> <!-- Old icon for Server Details -->
+                        <span class="button-text">Server Details</span>
+                    </button>
+                    <button onclick="showSection('plugins-content')">
+                        <i class="fas fa-puzzle-piece"></i>
+                        <span class="button-text">Plugins</span>
+                    </button>
+                    <button onclick="showSection('how-to-play-content')">
+                        <i class="fas fa-question-circle"></i>
+                        <span class="button-text">How to Play & Start</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- This container holds all the dynamic content sections below the main nav buttons -->
+            <div id="dynamic-content-area">
+                <!-- Server Info Content (Default active after login) -->
+                <div id="server-info-content" class="content-section active">
+                    <h2>🖥️ Server Info & Status</h2>
+                    <p><strong><i class="fas fa-link"></i> Server IP:</strong> <span id="server-ip">mc1524209.fmcs.cloud</span> <button onclick="copyToClipboard('server-ip')">📋 Copy</button></p>
+                    <p><strong><i class="fas fa-ethernet"></i> Port:</strong> <span id="server-port">38762</span> <button onclick="copyToClipboard('server-port')">📋 Copy</button></p>
+                    <p>
+                        <strong><i class="fas fa-mobile-alt"></i> Quick Join (Bedrock):</strong>
+                        <a href="minecraft://?addExternalServer=MyServer|mc1524209.fmcs.cloud:47112">
+                            <button><i class="fas fa-gamepad"></i> Connect with Bedrock</button>
+                        </a>
+                    </p>
+                    <p><strong><i class="fab fa-java"></i> Java Version:</strong> <span>1.21.4-1.7(via backward & and via version)</span></p>
+                    <p><strong><i class="fas fa-cube"></i> Bedrock Version:</strong> <span>1.21.70-1.211.81(via Geyser)</span></p>
+                    <p><strong><i class="fas fa-globe"></i> Public Page:</strong> <a href="https://freemcserver.net/server/1524209" target="_blank" class="plugin-link-btn" style="background-color: var(--button-red);"><i class="fas fa-external-link-alt"></i> View Server</a></p>
+
+                    <h3 style="color: var(--accent-green); font-size: 1.8em; margin-top: 30px; text-align: center;">📊 Live Server Status</h3>
+                    <p><strong>Status:</strong> <span id="server-status">Checking status...</span></p>
+                    <p><strong>Players:</strong> <span id="player-count"></span></p>
+
+                    <div id="server-control-options" style="text-align: center; margin-top: 20px;">
+                        <!-- Buttons appear here based on status -->
+                    </div>
+
+                    <h3 style="color: var(--accent-green); font-size: 1.8em; margin-top: 30px; text-align: center;">👥 Online Players</h3>
+                    <ul id="online-players-list" class="player-list">
+                        <li>Loading player list...</li>
+                    </ul>
+                </div>
+
+                <!-- Plugins Content (Initially hidden, shown by button click) -->
+                <div id="plugins-content" class="content-section">
+                    <h2>🔌 Plugins</h2>
+                    <div class="player-sub-nav">
+                        <button data-plugin-sub-section="all-plugins" class="active">📦 All Plugins</button>
+                        <button data-plugin-sub-section="non-working-plugins">⚠️ Non-Working Plugins</button>
+                    </div>
+                    <input type="text" id="plugin-search" placeholder="Search plugins..." class="glowTarget">
+                    <ul id="plugin-list">
+                        <!-- Plugins will be dynamically loaded by JavaScript -->
+                    </ul>
+                </div>
+
+                <!-- How to Play & Start Server Content (Initially hidden, shown by button click) -->
+                <div id="how-to-play-content" class="content-section">
+                    <h2>🎮 How to Join & Start The Server</h2>
+                    <h3 style="color: var(--accent-green); font-size: 1.5em; margin-bottom: 20px;">How to Join</h3>
+                    <ol>
+                        <li>Open Minecraft (Bedrock users click on the <strong style="color:var(--accent-green);">Connect with Bedrock</strong> button above).</li>
+                        <li>Click on <strong>Multiplayer</strong> → <strong>Add Server</strong>.</li>
+                        <li>Enter the Server IP: <strong style="color:var(--accent-green);">mc1524209.fmcs.cloud</strong></li>
+                        <li>Use Port: <strong style="color:var(--accent-green);">38762</strong></li>
+                        <li>Click <strong>Join Server</strong> and enjoy!</li>
+                    </ol>
+
+                    <h3 style="color: var(--accent-green); font-size: 1.5em; margin-top: 30px; margin-bottom: 20px;">How to Start Server if Offline</h3>
+                    <ol>
+                        <li>Click the relevant button in the <strong>Live Server Status</strong> section above.</li>
+                        <li>It will open FreeMcServer's public page.</li>
+                        <li>Scroll down the page.</li>
+                        <li>If it shows <strong>Stop and Expires in X mins</strong>, the server is already starting or online.</li>
+                        <li>If it shows <strong>Start</strong>, click it.</li>
+                        <li>Wait around 5 minutes.</li>
+                        <li>Then follow the steps in <strong>How to Play</strong>.</li>
+                    </ol>
+                </div>
+
+                <!-- Account Settings Content (Sidebar only access) -->
+                <div id="account-settings-content" class="content-section">
+                    <h2>👤 Account Settings</h2>
+                    <div class="profile-container">
+                        <div class="profile-info-display">
+                            <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">Your Profile</h3>
+                            <div class="profile-avatar">
+                                <span id="profile-initial"></span>
+                                <img id="profile-image" src="" alt="Profile Pic" style="display: none;">
+                                <input type="file" id="avatar-upload" accept="image/*">
+                            </div>
+                            <p style="text-align: center; color: #aaa; font-size: 0.9em; margin-top: 5px; margin-bottom: 20px;">Click avatar to change</p>
+
+                            <div class="profile-info-text">
+                                <strong>Email:</strong> <span id="display-email"></span>
+                                <strong>Minecraft Username:</strong> <span id="display-minecraft-username"></span>
+                                <strong>Minecraft Edition:</strong> <span id="display-minecraft-edition"></span> <!-- New display for edition -->
+                                <strong>Account ID:</strong> <span id="display-account-id"></span>
+                                <strong>Account Name:</strong> <span id="display-account-name"></span>
+                            </div>
+                            <button onclick="showSection('change-password-content')" style="background-color: var(--accent-blue); margin-top: 15px;">
+                                <i class="fas fa-key"></i> Change Password
+                            </button>
+                        </div>
+
+                        <form id="profile-form">
+                            <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">Update Info</h3>
+                            <label for="minecraft-username">Minecraft Username:</label>
+                            <input type="text" id="minecraft-username" placeholder="Your Minecraft Username">
+
+                            <label for="account-name">Account Name:</label>
+                            <input type="text" id="account-name" placeholder="e.g. Your Guild Name">
+
+                            <button type="submit" style="background-color: var(--accent-blue);">Save Profile</button>
+                            <p id="profile-message" style="text-align: center; margin-top: 15px; color: var(--accent-green);"></p>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- New: Change Password Section (Accessed from top-right dropdown) -->
+                <div id="change-password-content" class="content-section">
+                    <h2>🔑 Change Password</h2>
+                    <form id="change-password-form">
+                        <label for="current-password">Current Password:</label>
+                        <input type="password" id="current-password" required>
+
+                        <label for="new-password">New Password:</label>
+                        <input type="password" id="new-password" required>
+
+                        <label for="confirm-new-password">Confirm New Password:</label>
+                        <input type="password" id="confirm-new-password" required>
+
+                        <button type="submit" style="background-color: var(--accent-blue);">Update Password</button>
+                        <p id="change-password-message" style="text-align: center; margin-top: 15px;"></p>
+                    </form>
+                </div>
+
+
+                <!-- NEW: Players Content (Sidebar only access) -->
+                <div id="players-content" class="content-section">
+                    <h2>🏆 Players Leaderboard</h2>
+                    <div class="player-sub-nav">
+                        <button data-player-sub-section="top-richest" class="active">💰 Top 3 Richest</button>
+                        <button data-player-sub-section="all-players">👥 All Players</button>
+                        <button data-player-sub-section="top-taxed">💸 Top 3 Most Taxed</button>
+                        <button data-player-sub-section="player-post">📣 Player Post</button>
+                    </div>
+
+                    <div id="top-richest-content" class="player-sub-content active">
+                        <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">👑 Top 3 Richest Players</h3>
+                        <ul id="richest-players-list">
+                            <!-- Data populated by JS -->
+                        </ul>
+                    </div>
+
+                    <div id="all-players-content" class="player-sub-content">
+                        <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">All Active Players</h3>
+                        <input type="text" id="all-players-search" placeholder="Search players...">
+                        <ul id="all-players-list">
+                            <!-- Players will be rendered here with Java/Bedrock indication -->
+                        </ul>
+                    </div>
+
+                    <div id="top-taxed-content" class="player-sub-content">
+                        <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">📉 Top 3 Most Taxed Players</h3>
+                        <ul id="taxed-players-list">
+                            <!-- Data populated by JS -->
+                        </ul>
+                    </div>
+
+                    <div id="player-post-content" class="player-sub-content">
+                        <h3 style="color: var(--accent-green); text-align: center; margin-bottom: 20px;">📢 Player Announcements / Posts</h3>
+                        <div class="player-post-area">
+                            <p style="color: #ccc;">No new player posts yet. Check back later!</p>
+                            <p style="font-size: 0.9em; margin-top: 15px; color: #999;">(Feature for players to submit announcements coming soon!)</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Forms Content (Sidebar only access) -->
+                <div id="forms-content" class="content-section">
+                    <h2>📋 Forms</h2>
+                    <div style="text-align: center;">
+                        <a href="https://minecraft2613.github.io/joining-form/" style="background-color: var(--accent-dark-blue);"><i class="fas fa-hand-holding-usd"></i> Fill Joining Bonus Form</a>
+                        <p style="margin-top: 20px; color: #ccc;">More forms coming soon!</p>
+                    </div>
+                </div>
+
+                <!-- Contact Us section (formerly Issue Report) -->
+                <div id="contact-us-content" class="content-section">
+                    <h2>📬 Contact Us</h2>
+                    <p style="text-align: center; color: #ccc; margin-bottom: 20px;">Have questions, feedback, or an issue? Let us know below. We'll get back to you via Discord!</p>
+                    <form id="contact-us-form">
+                        <label for="contact-minecraft-username">Your Minecraft Username:</label>
+                        <input type="text" id="contact-minecraft-username" placeholder="Your Minecraft Username" required><br>
+
+                        <label for="contact-discord-id">Your Discord ID (e.g., user#1234):</label>
+                        <input type="text" id="contact-discord-id" placeholder="Your Discord#ID" required><br>
+
+                        <label for="contact-message">Your message:</label>
+                        <textarea id="contact-message" placeholder="Please describe your message or issue..." rows="5" required></textarea><br>
+                        <button type="submit" style="background-color: var(--accent-dark-blue);"><i class="fas fa-paper-plane"></i> Send Message</button>
+                    </form>
+                    <p id="contact-us-status" class="custom-message"></p>
+                </div>
+
+                <!-- Rules Section -->
+                <div id="rules-content" class="content-section">
+                    <h2>📜 Server Rules</h2>
+                    <ul>
+                        <li><strong>Rule 1: Be Respectful.</strong> Treat all players with kindness and respect. Harassment, hate speech, and discrimination will not be tolerated.</li>
+                        <li><strong>Rule 2: No Griefing or Stealing.</strong> Do not destroy or modify other players' builds or steal their items.</li>
+                        <li><strong>Rule 3: No Cheating or Exploiting.</strong> Do not use any hacks, clients, or exploits that give you an unfair advantage.</li>
+                        <li><strong>Rule 4: Keep Chat Appropriate.</strong> Avoid excessive profanity, spamming, and inappropriate content in chat.</li>
+                        <li><strong>Rule 5: Land Claim.</strong> Protect your builds by claiming land. Unclaimed builds are subject to removal.</li>
+                        <li><strong>Rule 6: PvP Consent.</strong> PvP is only allowed with mutual consent from all parties involved.</li>
+                        <li><strong>Rule 7: Report Issues.</strong> If you encounter a bug, a rule-breaker, or need help, report it to staff.</li>
+                        <li><strong>Rule 8: Follow Staff Instructions.</strong> Respect decisions made by server staff.</li>
+                    </ul>
+                    <p style="text-align: center; margin-top: 20px; color: #999;">For a detailed list of rules, please visit our <a href="https://minecraft2613.github.io/Minecarft-2613-Rules/" target="_blank">full rules page</a>.</p>
+                </div>
+
+                <!-- Theme Settings Content (Sidebar only access) -->
+                <div id="theme-settings-content" class="content-section">
+                    <h2>🎨 Theme Settings</h2>
+                    <div id="themePanel">
+                        <label for="boxColor">Box Background Color</label>
+                        <input type="color" id="boxColor">
+
+                        <label for="glowColor">Glow Color</label>
+                        <input type="color" id="glowColor">
+
+                        <label><input type="checkbox" id="glowToggle"> Enable Glow</label>
+
+                        <label for="glowSpeed">Glow Speed (seconds)</label>
+                        <input type="range" id="glowSpeed" min="1" max="10" value="3">
+
+                        <label for="glowBrightness">Glow Brightness</label>
+                        <input type="range" id="glowBrightness" min="0" max="1" step="0.1" value="0.6">
+
+                        <label for="bgTheme">Background Theme (CSS gradient or image URL)</label>
+                        <input type="text" id="bgTheme" placeholder="e.g. linear-gradient(...) or url(...)">
+
+                        <label for="textLightColor">Text Light Color</label>
+                        <input type="color" id="textLightColor">
+
+                        <label for="accentGreenColor">Accent Green Color</label>
+                        <input type="color" id="accentGreenColor">
+
+                        <label for="accentBlueColor">Accent Blue Color</label>
+                        <input type="color" id="accentBlueColor">
+
+                        <div style="text-align:center; margin-top: 25px;">
+                            <button onclick="saveTheme()">💾 Save</button>
+                            <button onclick="resetTheme()">🔄 Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Minecraft Server. Hosted via <a href="https://freemcserver.net" target="_blank">FreeMcServer.net</a></p>
+        </footer>
+    </div>
+
+    <script src="script/theme&contact.js"></script>
+    <script src="script/account.js"></script>
+    <script src="script/home.js"></script>
+    <script src="script/player.js"></script>
+</body>
+</html>
