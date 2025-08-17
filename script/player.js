@@ -18,16 +18,15 @@ function formatTimeAgo(timestamp) {
     if (minutes < 60) return `${minutes} minutes ago`;
 
     const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours} hours ago`;
+    const days = Math.floor(hours / 24); // Calculate days here
 
-    const days = Math.floor(hours / 24);
-    if (days < 30) return `${days} days ago`;
+    if (days > 0) return `${days} days ago`; // If there are days, show days
 
-    const months = Math.floor(days / 30);
-    if (months < 12) return `${months} months ago`;
+    if (hours > 0) return `${hours} hours ago`; // Otherwise, if there are hours, show hours
 
-    const years = Math.floor(months / 12);
-    return `${years} years ago`;
+    // Fallback for very recent times (less than an hour)
+    if (minutes > 0) return `${minutes} minutes ago`;
+    return `${seconds} seconds ago`;
 }
 
 function formatPlaytime(milliseconds) {
