@@ -1,9 +1,10 @@
 {
   "ansh": {
-    "lastSeen": 1755443611939,
+    "lastSeen": 0,
     "balance": 4258664.129999999,
     "name": "ansh",
     "isBedrock": false,
-    "online": false
+    "online": true,
+    "onlineTime": 0
   }
 }
