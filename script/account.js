@@ -1,7 +1,7 @@
 
 
 
-const simulatedCloudflareApi = cloudflareApi;
+
 
 // --- User Authentication and Profile Management ---
 const AUTH_SCREEN = document.getElementById('auth-screen');
@@ -384,15 +384,23 @@ window.addEventListener("DOMContentLoaded", () => {
     const storedAuthEmail = sessionStorage.getItem('current_auth_email');
     if (storedAuthEmail) {
         console.log('Found stored email in session. Attempting re-login...');
-        const userJson = getSimulatedKVItem(storedAuthEmail);
-        if (userJson) {
-            const user = JSON.parse(userJson);
-            currentUser = { email: user.email, uid: user.uid };
-            userProfile = user.profile;
+        // Attempt to re-login using the stored email (password is not stored for security)
+        // This assumes the worker's /login endpoint can handle re-authentication with just email if a session is valid
+        // For a real app, you'd use a token or more robust session management.
+        const response = await fetch('https://mainweb.mk2899833.workers.dev/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: storedAuthEmail, password: "" }) // Send empty password for re-auth attempt
+        });
+        const responseData = await response.json();
+
+        if (responseData.success) {
+            currentUser = { email: responseData.email, uid: responseData.uid };
+            userProfile = responseData.user;
             console.log('Re-login successful with stored email. User:', currentUser.email);
             handleSuccessfulAuth();
         } else {
-            console.log('Stored email not found in simulated KV. Showing auth screen.');
+            console.log('Stored email not found in worker or re-auth failed. Showing auth screen.');
             sessionStorage.removeItem('current_auth_email'); // Clear invalid session
             setAuthMode(false); // Default to login mode
             authScreen.style.display = "flex";
