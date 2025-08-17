@@ -9,7 +9,7 @@ const taxedPlayersList = document.getElementById('taxed-players-list');
 let allPlayersData = [];
 
 async function fetchPlayers() {
-    const response = await fetch('/players');
+    const response = await fetch('https://mainweb.mk2899833.workers.dev/players');
     allPlayersData = await response.json();
     renderAllPlayers(allPlayersData);
 }

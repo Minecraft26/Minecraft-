@@ -1,7 +1,7 @@
 
 const cloudflareApi = {
     async login(email, password) {
-        const response = await fetch('/login', {
+        const response = await fetch('https://mainweb.mk2899833.workers.dev/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
@@ -9,7 +9,7 @@ const cloudflareApi = {
         return response.json();
     },
     async register(email, password, minecraftUsername, accountName, minecraftEdition) {
-        const response = await fetch('/register', {
+        const response = await fetch('https://mainweb.mk2899833.workers.dev/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password, minecraftUsername, accountName, minecraftEdition })
@@ -17,7 +17,7 @@ const cloudflareApi = {
         return response.json();
     },
     async updateProfile(email, newProfileData) {
-        const response = await fetch(`/profile/${email}` , {
+        const response = await fetch(`https://mainweb.mk2899833.workers.dev/profile/${email}` , {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newProfileData)
@@ -25,7 +25,7 @@ const cloudflareApi = {
         return response.json();
     },
     async changePassword(email, currentPassword, newPassword) {
-        const response = await fetch(`/password/${email}`, {
+        const response = await fetch(`https://mainweb.mk2899833.workers.dev/password/${email}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ currentPassword, newPassword })

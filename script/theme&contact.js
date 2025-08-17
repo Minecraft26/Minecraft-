@@ -98,7 +98,7 @@ async function applyTheme() {
     let theme = JSON.parse(localStorage.getItem("theme")) || {};
 
     if (currentUser && currentUser.uid) {
-        const response = await fetch(`/theme/${currentUser.uid}`);
+        const response = await fetch(`https://mainweb.mk2899833.workers.dev/theme/${currentUser.uid}`);
         if (response.ok) {
             theme = await response.json();
         }
@@ -155,7 +155,7 @@ async function saveTheme() {
     };
 
     if (currentUser && currentUser.uid) {
-        await fetch(`/theme/${currentUser.uid}`, {
+        const response = await fetch(`https://mainweb.mk2899833.workers.dev/theme/${currentUser.uid}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(theme)

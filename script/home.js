@@ -73,7 +73,7 @@ const serverIP = "mc1524209.fmcs.cloud"; // Your FreeMcServer IP
             document.getElementById("server-port").textContent = "38762"; // Hardcoded as requested
 
             try {
-                const playersResponse = await fetch('/players');
+                const playersResponse = await fetch('https://mainweb.mk2899833.workers.dev/players');
                 const allPlayers = await playersResponse.json();
 
                 const onlinePlayers = allPlayers.filter(p => p.online);
