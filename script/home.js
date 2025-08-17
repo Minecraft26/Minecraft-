@@ -108,15 +108,38 @@ setInterval(fetchServerStatus, 5000); // Repeat every 5 seconds
 
 // --- Plugin Data & Render Logic ---
 const pluginsData = [
-    { name: "EssentialsX", description: "Core plugin for server management, homes, warps, kits, and more.", videoLink: "https://www.youtube.com/embed/dQw4w9WgXcQ", detailsLink: "https://essentialsx.net/wiki.html", status: "working" },
-    { name: "LuckPerms", description: "Powerful permissions plugin with a web editor.", videoLink: "", detailsLink: "https://luckperms.net/", status: "working" },
-    { name: "WorldEdit", description: "Fast and easy to use in-game world editor.", videoLink: "https://www.youtube.com/embed/aYd2I9B5G60", detailsLink: "https://enginehub.org/worldedit/", status: "working" },
-    { name: "GriefPrevention", description: "Prevents griefing and protects player builds with land claims.", videoLink: "https://www.youtube.com/embed/p_G-o2r9D2s", detailsLink: "https://www.spigotmc.org/resources/griefprevention.1884/", status: "working" },
-    { name: "PlaceholderAPI", description: "Adds placeholders to plugins, allowing dynamic text display.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/placeholderapi.6245/", status: "working" },
-    { name: "Vault", description: "A permissions, chat, & economy API to allow plugins to hook into.", videoLink: "https://www.youtube.com/embed/lIeXvD3xG4w", detailsLink: "https://www.spigotmc.org/resources/vault.34315/", status: "working" },
-    { name: "EconomyTaxerWeb", description: "This custom plugin is not made by CraftOne. Unsupported version by Ansh_2613 and i._Sakshamm.", videoLink: "", detailsLink: "", status: "non-working", problem: "This custom plugin is not made by CraftOne. Unsupported version by Ansh_2613 and i._Sakshamm." }, // Updated problem
-    { name: "Movecraft", description: "Allows players to build and pilot custom ships and vehicles.", videoLink: "https://www.youtube.com/embed/some_movecraft_video", detailsLink: "https://www.spigotmc.org/resources/movecraft.20364/", status: "non-working", problem: "Unsupported version." } // Updated problem
-    // Add more plugins here with their status
+    { name: "SkinsRestorer", description: "Ability to restore/change skins on servers! (Offline and Online Mode)", videoLink: "", detailsLink: "https://modrinth.com/plugin/skinsrestorer", status: "working" },
+    { name: "ViaVersion", description: "Allow newer clients to connect to older servers.", videoLink: "", detailsLink: "https://modrinth.com/plugin/viaversion", status: "working" },
+    { name: "LuckPerms", description: "A permissions plugin for Minecraft servers (Bukkit/Spigot, BungeeCord & more)", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/luckperms.28140/", status: "working" },
+    { name: "Vault", description: "Vault is a Permissions, Chat, & Economy API to give plugins easy hooks into these systems.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/vault.34315/", status: "working" },
+    { name: "ProtocolLib", description: "Provides read/write access to the Minecraft protocol", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/protocollib.1997/", status: "working" },
+    { name: "CoreProtect", description: "CoreProtect is a fast, efficient, data logging and anti-griefing tool. Rollback and restore any amount of damage. Designed with large servers in mind, CoreProtect will record and manage data without impacting your server performance.", videoLink: "", detailsLink: "https://modrinth.com/plugin/coreprotect", status: "working" },
+    { name: "NBTAPI", description: "Add custom NBT tags to Items/Tiles/Entities without NMS", videoLink: "", detailsLink: "https://modrinth.com/plugin/nbtapi", status: "working" },
+    { name: "WorldEdit", description: "A Minecraft Map Editor... that runs in-game! With selections, schematics, copy and paste, brushes, and scripting. Use it in creative, or use it temporarily in survival.", videoLink: "", detailsLink: "https://modrinth.com/plugin/worldedit", status: "working" },
+    { name: "QuickShopHikari", description: "A shop plugin that allows players to easily sell/buy any items from a chest without any commands.", videoLink: "", detailsLink: "https://modrinth.com/plugin/quickshophikari", status: "working" },
+    { name: "MultiverseCore", description: "The Bukkit World Management Plugin.", videoLink: "", detailsLink: "https://modrinth.com/plugin/multiverse-core", status: "working" },
+    { name: "BKCommonLib", description: "Spigot/Paper Utility Library and Minecraft Server API", videoLink: "", detailsLink: "https://modrinth.com/plugin/bkcommonlib", status: "working" },
+    { name: "PicoJobs", description: "An amazing plugin that allows you to create your own jobs for your players. The plugin is 100% configurable so you can change everything you see, it is also open-source if you want to take a look on how it's made.", videoLink: "", detailsLink: "https://modrinth.com/plugin/picojobs", status: "working" },
+    { name: "BedrockArmorstands", description: "Simply makes armorstands have arms by default like in bedrock edition!", videoLink: "", detailsLink: "https://modrinth.com/plugin/bedrockarmorstands", status: "working" },
+    { name: "ZNPCsPlus", description: "An updated version of ZNPCs", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/znpcsplus.106394/", status: "working" },
+    { name: "PlaceholderAPI", description: "A resource that allows information from your favorite plugins be shown practically anywhere!", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/placeholderapi.6245/", status: "working" },
+    { name: "EconomyShopGUI", description: "A simple and free to use GUI shop plugin", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/economyshopgui.6009/", status: "working" },
+    { name: "BeastLib", description: "BeastLib is dependency for Beast plugins like BeastWithdraw, BeastTokens & BeastSpawners", videoLink: "", detailsLink: "https://modrinth.com/plugin/beastlib", status: "working" },
+    { name: "GeyserSpigot", description: "GeyserMC is a bridge/proxy allowing you to connect to Minecraft: Java Edition servers with Minecraft: Bedrock Edition.", videoLink: "", detailsLink: "https://modrinth.com/plugin/geyser", status: "working" },
+    { name: "floodgate", description: "Hybrid mode plugin to allow for connections from Geyser to join online mode servers. Made to be installed with GeyserMC.", videoLink: "", detailsLink: "https://geysermc.org/download#floodgate", status: "working" },
+    { name: "Maintenance", description: "The most customizable free maintenance plugin for your Minecraft server you can find. It runs on Paper, Velocity, Bungee, as well as Sponge.", videoLink: "", detailsLink: "https://modrinth.com/plugin/maintenance", status: "working" },
+    { name: "Craftmoto Lite", description: "Cars, Trains, Boats, Planes | Highly Customizable Vehicles | LITE", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/craftmoto-lite.49009/", status: "working" },
+    { name: "Train_Carts", description: "Minecarts redefined", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/traincarts.3959/", status: "working" },
+    { name: "EssentialsX", description: "Core plugin for server management, homes, warps, kits, and more.", videoLink: "", detailsLink: "https://essentialsx.net/wiki.html", status: "working" },
+    { name: "NSR-AI", description: "Custom AI plugin for server management.", videoLink: "", detailsLink: "", status: "working" },
+    { name: "NSR-Money", description: "Custom money management plugin.", videoLink: "", detailsLink: "", status: "working" },
+    { name: "worldpluginmanager", description: "Custom plugin manager for server worlds.", videoLink: "", detailsLink: "", status: "working" },
+    { name: "salary-plugin", description: "Custom salary management plugin.", videoLink: "", detailsLink: "", status: "working" },
+    { name: "GSit", description: "Allows players to sit on stairs and other blocks.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/gsit.62396/", status: "working" },
+    { name: "ImageMapRenderer", description: "Renders images on maps in Minecraft.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/imagemaprenderer.10000/", status: "working" },
+    { name: "sleepmost", description: "A plugin to manage player sleep on the server.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/sleepmost.60623/", status: "working" },
+    { name: "ChestLocker", description: "Allows players to lock chests and other containers.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/chestlocker.10000/", status: "working" },
+    { name: "NoChatReports", description: "Disables chat reporting on the server.", videoLink: "", detailsLink: "https://www.spigotmc.org/resources/nochatreports.10000/", status: "working" }
 ];
 
 const pluginSubNavButtons = document.querySelectorAll('#plugins-content .player-sub-nav button');
