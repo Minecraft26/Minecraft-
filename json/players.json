@@ -8,11 +8,11 @@
     "onlineTime": 3803239
   },
   "billu_backchod": {
-    "lastSeen": 0,
+    "lastSeen": 1755511739824,
     "balance": 1027350.4999999999,
     "name": "billu_backchod",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 881278
   }
 }
