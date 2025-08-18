@@ -30,5 +30,13 @@
     "isBedrock": true,
     "online": false,
     "onlineTime": 237299
+  },
+  "itzyash6503": {
+    "lastSeen": 0,
+    "balance": 0,
+    "name": "itzyash6503",
+    "isBedrock": false,
+    "online": true,
+    "onlineTime": 0
   }
 }
