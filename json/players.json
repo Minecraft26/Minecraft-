@@ -38,5 +38,13 @@
     "isBedrock": false,
     "online": false,
     "onlineTime": 24471
+  },
+  "ItzWhite7778": {
+    "lastSeen": 0,
+    "balance": 0,
+    "name": "ItzWhite7778",
+    "isBedrock": false,
+    "online": true,
+    "onlineTime": 0
   }
 }
