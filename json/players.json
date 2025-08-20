@@ -46,5 +46,13 @@
     "isBedrock": false,
     "online": false,
     "onlineTime": 29810
+  },
+  "sharad": {
+    "lastSeen": 0,
+    "balance": 0,
+    "name": "sharad",
+    "isBedrock": false,
+    "online": true,
+    "onlineTime": 0
   }
 }
