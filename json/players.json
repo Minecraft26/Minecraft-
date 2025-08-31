@@ -72,11 +72,11 @@
     "onlineTime": 21284
   },
   "NSR-AI": {
-    "lastSeen": 0,
+    "lastSeen": 1756639372359,
     "balance": 0,
     "name": "NSR-AI",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 108964
   }
 }
