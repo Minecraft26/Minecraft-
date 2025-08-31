@@ -70,5 +70,13 @@
     "isBedrock": false,
     "online": false,
     "onlineTime": 21284
+  },
+  "NSR-AI": {
+    "lastSeen": 0,
+    "balance": 0,
+    "name": "NSR-AI",
+    "isBedrock": false,
+    "online": true,
+    "onlineTime": 0
   }
 }
