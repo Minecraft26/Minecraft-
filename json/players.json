@@ -24,12 +24,12 @@
     "onlineTime": 0
   },
   ".itzyash6503": {
-    "lastSeen": 0,
-    "balance": 3448249.829999999,
+    "lastSeen": 1756990960559,
+    "balance": 3447501.189999999,
     "name": ".itzyash6503",
     "isBedrock": true,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 400469
   },
   "itzyash6503": {
     "lastSeen": 1756984561009,
