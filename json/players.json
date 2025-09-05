@@ -56,12 +56,12 @@
     "onlineTime": 205234
   },
   "baba_tillu": {
-    "lastSeen": 0,
-    "balance": 1078570.5,
+    "lastSeen": 1757050368405,
+    "balance": 1058570.5,
     "name": "baba_tillu",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 445023
   },
   "Ansh1": {
     "lastSeen": 1756569623560,
