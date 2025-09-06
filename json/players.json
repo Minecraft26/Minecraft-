@@ -96,11 +96,11 @@
     "onlineTime": 0
   },
   "mmbro": {
-    "lastSeen": 1757149422924,
+    "lastSeen": 0,
     "balance": 0,
     "name": "mmbro",
     "isBedrock": false,
-    "online": false,
+    "online": true,
     "onlineTime": 90082
   }
 }
