@@ -88,12 +88,12 @@
     "onlineTime": 3989461
   },
   "BBGAMING231": {
-    "lastSeen": 0,
+    "lastSeen": 1757231540448,
     "balance": 628000,
     "name": "BBGAMING231",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 1032068
+    "online": false,
+    "onlineTime": 1077149
   },
   "mmbro": {
     "lastSeen": 0,
