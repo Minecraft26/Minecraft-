@@ -110,5 +110,13 @@
     "isBedrock": false,
     "online": false,
     "onlineTime": 291269
+  },
+  "itz_adi_here": {
+    "lastSeen": 0,
+    "balance": 0,
+    "name": "itz_adi_here",
+    "isBedrock": false,
+    "online": true,
+    "onlineTime": 0
   }
 }
