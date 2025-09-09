@@ -136,11 +136,11 @@
     "onlineTime": 0
   },
   "zG_gAmEr_1O1": {
-    "lastSeen": 1757415886721,
+    "lastSeen": 0,
     "balance": 0,
     "name": "zG_gAmEr_1O1",
     "isBedrock": false,
-    "online": false,
+    "online": true,
     "onlineTime": 45003
   }
 }
