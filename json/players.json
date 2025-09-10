@@ -152,11 +152,11 @@
     "onlineTime": 20464
   },
   ".tumaharabaap979": {
-    "lastSeen": 0,
+    "lastSeen": 1757507773989,
     "balance": 0,
     "name": ".tumaharabaap979",
     "isBedrock": true,
-    "online": true,
-    "onlineTime": 113001
+    "online": false,
+    "onlineTime": 229805
   }
 }
