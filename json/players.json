@@ -168,11 +168,11 @@
     "onlineTime": 351228
   },
   "12n12": {
-    "lastSeen": 0,
+    "lastSeen": 1757608734772,
     "balance": 0,
     "name": "12n12",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 389468
+    "online": false,
+    "onlineTime": 434509
   }
 }
