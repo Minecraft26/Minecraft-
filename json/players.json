@@ -200,11 +200,11 @@
     "onlineTime": 176486
   },
   "Hizxion": {
-    "lastSeen": 0,
+    "lastSeen": 1757672332997,
     "balance": 0,
     "name": "Hizxion",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 144513
   }
 }
