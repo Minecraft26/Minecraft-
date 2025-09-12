@@ -192,11 +192,11 @@
     "onlineTime": 416
   },
   "Crans_Warrior": {
-    "lastSeen": 0,
+    "lastSeen": 1757671593987,
     "balance": 0,
     "name": "Crans_Warrior",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 176486
   }
 }
