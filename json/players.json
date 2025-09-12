@@ -184,11 +184,11 @@
     "onlineTime": 45068
   },
   "bbgaming7766": {
-    "lastSeen": 0,
+    "lastSeen": 1757669415582,
     "balance": 0,
     "name": "bbgaming7766",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 0
+    "online": false,
+    "onlineTime": 416
   }
 }
