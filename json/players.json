@@ -198,5 +198,13 @@
     "isBedrock": false,
     "online": false,
     "onlineTime": 176486
+  },
+  "Hizxion": {
+    "lastSeen": 0,
+    "balance": 0,
+    "name": "Hizxion",
+    "isBedrock": false,
+    "online": true,
+    "onlineTime": 0
   }
 }
