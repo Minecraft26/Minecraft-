@@ -80,12 +80,12 @@
     "onlineTime": 108964
   },
   "nahian01": {
-    "lastSeen": 0,
+    "lastSeen": 1759395600510,
     "balance": 367945.35,
     "name": "nahian01",
     "isBedrock": false,
-    "online": true,
-    "onlineTime": 675499
+    "online": false,
+    "onlineTime": 1102069
   },
   "BBGAMING231": {
     "lastSeen": 1758194681323,
