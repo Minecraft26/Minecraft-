@@ -8,12 +8,12 @@
     "onlineTime": 0
   },
   "billu_backchod": {
-    "lastSeen": 1759395589169,
-    "balance": 43515.15999999998,
+    "lastSeen": 0,
+    "balance": 631113.4999999999,
     "name": "billu_backchod",
     "isBedrock": false,
-    "online": false,
-    "onlineTime": 822879
+    "online": true,
+    "onlineTime": 0
   },
   ".ItzWhite7778": {
     "lastSeen": 1759570040190,
